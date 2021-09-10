@@ -1,0 +1,18 @@
+{
+    "colors": {
+        "body" : "#88d"
+    },
+    "border":{
+        "default" : "2px solid #ddd"
+    },
+    "divider": {
+        "main" : "2px solid #444",
+        "splitter" : "1px solid #ddd"
+    },
+    "navbar":{
+        "height" : "50px"
+    },
+    "footer": {
+        "height" : "150px"
+    }
+}
