@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import CartContext from "../../context/CartContext";
-
+import logo from '../../images/CommerceTitle.png';
 const theme = require("../../schema.json");
 
 const Nav = styled.nav`
@@ -23,14 +23,26 @@ const LinkItem = styled.li`
   flex: auto;
 `;
 
+const SiteLogo = styled.img`
+    height: 48px;
+    width: 256px;
+`;
+
 const NavBar = () => {
   const {cartInventory} = useContext(CartContext);
+
+  useEffect(() =>{
+    //TODO: Implement something that updates the nav bar
+    //Empty use effect that lets the nav bar update itself continously
+  });
 
   return (
     <Nav>
       <LinkList>
         <LinkItem>
-          <Link to="/products">Products</Link>
+          <Link to="/products">
+            <SiteLogo src={logo} alt="Site Logo"/>
+          </Link>
         </LinkItem>
         {/* <li>
           <Link to="/products/detail">Product Details</Link>

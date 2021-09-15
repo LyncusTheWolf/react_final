@@ -8,7 +8,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link, 
   Redirect
 } from 'react-router-dom';
 
@@ -24,11 +23,14 @@ import PageNotFound from './errors/PageNotFound';
 //Context Imports
 import CartContext from './context/CartContext';
 import ProductContext from './context/ProductContext';
-import { getCartById, getFullProductList, getMockProductList } from './utils/utils';
+import { getCartById, getFullProductList, pushCartItem } from './utils/utils';
 import CommerceFooter from './components/footer/Footer';
 import AppWrapper from './styles/AppWrapper.style';
 
+const cartDefaultID = 1;
+
 function App() {
+
   const[isLoading, setLoading] = useState(true);
   const[searchTerm, setSearchTerm] = useState("");
   const[productList, setProductList] = useState(null);
@@ -55,7 +57,7 @@ function App() {
   }, [searchTerm]);
 
   useEffect(() => {
-    getCartById(1)
+    getCartById(cartDefaultID)
       .then((cart) =>{
         console.log(cart);
         setCartInventory(cart);
@@ -68,13 +70,52 @@ function App() {
   function handleProductSearch(e){
     e.preventDefault();
 
-    //setSearchTerm
+    setSearchTerm(e.target.searchTerm.value);
+  }
+
+  function handleUpdateCart(id, quantity){
+    //console.log(`Added ${quantity} item with id: ${id} to cart`);
+
+    pushCartItem(cartDefaultID, id, quantity)
+      .then((cartReturnID) =>{
+        console.log(`updated cart with id ${cartReturnID}`);
+
+        //Simulate the item being updated in the database
+        setCartInventory(prev =>{ 
+          prev.products.push({
+            'productId':parseInt(id),
+            'quantity':parseInt(quantity)
+          });
+
+          return prev;
+        });
+      })
+      .catch((err) =>{
+        console.log(err);
+      })
+  }
+
+  function removeItemAtIndex(index){
+    console.log(`Popping item at index ${index}`);
+
+    console.log(cartInventory.products.splice(index, 1));
+    console.log(cartInventory);
+
+    setCartInventory(cartInventory);
+  }
+
+  function clearCart(){
+    setCartInventory(prev =>{ 
+      prev.products = []
+
+      return prev;
+    });
   }
 
   return (
     <Router>     
       <AppWrapper>
-        <CartContext.Provider value={{cartInventory}}>
+        <CartContext.Provider value={{cartInventory, handleUpdateCart, clearCart, removeItemAtIndex}}>
           <NavBar/>
           <ProductContext.Provider value={{isLoading, productList}}>
             <Switch>

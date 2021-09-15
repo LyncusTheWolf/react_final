@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
+import CartContext from "../../context/CartContext";
 import ProductContext from "../../context/ProductContext";
 import ProductImage from "../../styles/ProductImage.style";
 import { getProductById } from "../../utils/utils";
@@ -31,6 +32,7 @@ const ProductDetails = () => {
     const[productQuantity, setProductQuantity] = useState(1);
 
     const {productList} = useContext(ProductContext);
+    const {handleUpdateCart} = useContext(CartContext);
 
     const {index} = useParams();
     //console.log(index);
@@ -87,7 +89,10 @@ const ProductDetails = () => {
                 <p>Price: {productItem.price}</p>
                 <p>Quantity:</p>
                 <input type="number" value={productQuantity} min="1" max="99" onChange={(e) => setProductQuantity(e.target.value)}/>
-                <button onClick={(e) => {addItemToCart(index, productQuantity)}}>Add to cart</button>
+                <button onClick={(e) => {
+                    //addItemToCart(index, productQuantity)
+                    handleUpdateCart(index, productQuantity);
+                }}>Add to cart</button>
             </PriceContainer>
         </ProductDetailsContainer>
     )

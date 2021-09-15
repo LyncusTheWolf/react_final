@@ -65,7 +65,7 @@ export const getFullProductList = async () => {
 export const getProductById = async (id) => {
     const searchURL = `${apiString}/products/${id}`;
 
-    console.log(`Executing product Fetch for - ${searchURL}`);
+    //console.log(`Executing product Fetch for - ${searchURL}`);
 
     const result = await getJSONFromResponse(searchURL);
 
@@ -84,6 +84,32 @@ export const getCartById = async (id) => {
     const cartURL = `${apiString}/carts/${id}`;
 
     const result = await getJSONFromResponse(cartURL);
+
+    return result;
+}
+
+export const pushCartItem = async(cartID, productID, quantity) => {
+    const pushURL = `${apiString}/carts/${cartID}`;
+
+    const response = await fetch(pushURL, {
+        method:"PATCH",
+        body:JSON.stringify(
+            {
+                products:[
+                    {
+                        productId:parseInt(productID), 
+                        quantity:parseInt(quantity)
+                    }
+                ]
+            }
+        )
+    });
+
+    if(!response.ok){
+        return Promise.reject(response.statusText);
+    }
+
+    const result = await response.json();
 
     return result;
 }

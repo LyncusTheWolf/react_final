@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import CartContext from "../../context/CartContext";
-import CartElem from "./CartElem";
+import CheckoutElem from "./CheckoutElem";
 
 const theme = require("../../schema.json");
 
@@ -12,18 +12,10 @@ const CartContainer = styled.div`
     box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.5);
 `;
 
-const useForceRerendering = () => {
-    const [counter, setCounter] = useState(0);
-    return () => setCounter(counter => counter + 1);
-};
-
-const CartList = () => {
-
-    const forceRerendering = useForceRerendering();
-
+const CheckoutList = () => {
     const {cartInventory} = useContext(CartContext);
 
-    //console.log(cartInventory);
+    console.log(cartInventory);
 
     /*
     *
@@ -32,10 +24,6 @@ const CartList = () => {
     * Map over that json object
     * 
     */
-
-    // useEffect(() =>{
-    //     //TODO: Implement something that updates the cart list when inventory is changed
-    // });
 
     if(!cartInventory){
         return(
@@ -47,16 +35,15 @@ const CartList = () => {
 
     return(
         <CartContainer>
-            {cartInventory.products.map((item, index) => 
-                <CartElem
-                    key={index}
-                    index={index}
+            {cartInventory.products.map((item) =>
+                <CheckoutElem
+                    key={item.id}
                     id={item.productId}
-                    quantity={item.quantity}                
+                    quantity={item.quantity}                  
                 />
             )}
         </CartContainer>
     )
 }
 
-export default CartList;
+export default CheckoutList;

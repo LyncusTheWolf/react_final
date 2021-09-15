@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import CartContext from "../../context/CartContext";
 import IndexContainer from "../../styles/ItemContainer.style";
 import ProductImage from "../../styles/ProductImage.style";
 import { getProductById } from "../../utils/utils";
@@ -19,19 +18,7 @@ const PriceDetails = styled.div`
     padding: 8px;
 `;
 
-const RemoveButton = styled.button`
-    border: 2px solid #dd0000;
-    background-color: red;
-    color: white;
-    border-radius: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: 0;
-`;
-
-const CartElem = ({id, index, quantity}) =>{
-
-    const {removeItemAtIndex} = useContext(CartContext);
+const CheckoutElem = ({id, quantity}) =>{
 
     const[productElem, setProductElem] = useState({
         "title": "Filler",
@@ -47,10 +34,6 @@ const CartElem = ({id, index, quantity}) =>{
             })
     }, []);
 
-    function handleCartPop(index){
-        console.log(`Popping item with index: ${index} from the cart`);
-    }
-
     return(
         <IndexContainer>
             <div className="flex flex-1">
@@ -63,13 +46,10 @@ const CartElem = ({id, index, quantity}) =>{
                 <PriceDetails>
                     <p>{quantity}</p>
                     <p>{productElem.price}</p>
-                    <RemoveButton onClick={() => {
-                        removeItemAtIndex(index);
-                    }}>x</RemoveButton>
                 </PriceDetails>
             </div>
         </IndexContainer>
     )
 }
 
-export default CartElem;
+export default CheckoutElem;
