@@ -36,15 +36,21 @@ const CheckoutForm = () => {
 
     const history = useHistory();
 
-    const {cartInventory, clearCart} = useContext(CartContext);
+    const {clearCart} = useContext(CartContext);
 
     function handleSubmit(e){
         e.preventDefault();
     
-        console.log("Submit intercepted");
+        //console.log("Submit intercepted");
         //console.log(e);
     
-        console.log(e.target.billaddress.value);
+        console.log(`
+            Sending billing info to:\n
+            ${e.target.fname.value} ${e.target.lname.value}\n
+            ${e.target.shipaddress.value}\n
+            ${e.target.billaddress.value}\n
+            Using ccn:${e.target.creditcard.value}\n
+        `);
         
         //TODO: Clear the cart
         clearCart();
@@ -57,24 +63,24 @@ const CheckoutForm = () => {
             <form onSubmit={handleSubmit}>
                 <ul>
                     <FormElem>
-                        <FormLabel for="fname">First Name:</FormLabel>
+                        <FormLabel >First Name:</FormLabel>
                         <FormInput name="fname" type="text"/>
                     </FormElem>
                     <FormElem>
-                        <FormLabel for="lname">Last Name:</FormLabel>
+                        <FormLabel >Last Name:</FormLabel>
                         <FormInput name="lname" type="text"/>
                     </FormElem>
                     <FormElem>
-                        <FormLabel for="shipaddress">Shiping Address:</FormLabel>
+                        <FormLabel >Shiping Address:</FormLabel>
                         <FormInput name="shipaddress" type="text"/>
                     </FormElem>
                     <FormElem>
-                        <FormLabel for="billaddress">Billing Address:</FormLabel>
+                        <FormLabel >Billing Address:</FormLabel>
                         <FormInput name="billaddress" type="text"/>
                     </FormElem>
                     <FormElem>
-                        <FormLabel for="creditcard">Credit Card Info:</FormLabel>
-                        <FormInput name="creditcard" type="number"/>
+                        <FormLabel >Credit Card Info:</FormLabel>
+                        <FormInput name="creditcard" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx"/>
                     </FormElem>
                     <FormElem>
                         <SubmitButton type="submit" value="Place Order"/>

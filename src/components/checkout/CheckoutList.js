@@ -15,7 +15,7 @@ const CartContainer = styled.div`
 const CheckoutList = () => {
     const {cartInventory} = useContext(CartContext);
 
-    console.log(cartInventory);
+    //console.log(cartInventory);
 
     /*
     *
@@ -35,9 +35,9 @@ const CheckoutList = () => {
 
     return(
         <CartContainer>
-            {cartInventory.products.map((item) =>
+            {cartInventory.products.map((item, index) =>
                 <CheckoutElem
-                    key={item.id}
+                    key={index}
                     id={item.productId}
                     quantity={item.quantity}                  
                 />

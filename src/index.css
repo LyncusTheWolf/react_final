@@ -30,6 +30,10 @@ code {
   flex: 3;
 }
 
+.flex-4{
+  flex: 4;
+}
+
 .flex-auto{
   flex: auto;
 }
@@ -40,4 +44,21 @@ code {
 
 .padding-16{
   padding: 16;
+}
+
+.fsize-16{
+  font-size: 16px;
+}
+
+.fsize-24{
+  font-size: 24px;
+}
+
+.fsize-32{
+  font-size: 32px;
+}
+
+.centered{
+  margin-left: auto;
+  margin-right: auto;
 }

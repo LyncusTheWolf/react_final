@@ -31,6 +31,14 @@ const cartDefaultID = 1;
 
 function App() {
 
+  //#region Rerender wrappers
+  //Hackish implementation to force a cascadeing re-render of the site
+  const[, setCounter] = useState(0);
+  function forceRerender(){
+    setCounter(prev => prev + 1);
+  }
+  //#endregion
+
   const[isLoading, setLoading] = useState(true);
   const[searchTerm, setSearchTerm] = useState("");
   const[productList, setProductList] = useState(null);
@@ -38,7 +46,7 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
-    console.log("Initial Page Load Functionality Established");
+    //console.log("Initial Page Load Functionality Established");
 
     //Do Search Related Magic Here
 
@@ -57,20 +65,24 @@ function App() {
   }, [searchTerm]);
 
   useEffect(() => {
+
+    //Simulates pulling up a cart by a specified user/id
     getCartById(cartDefaultID)
       .then((cart) =>{
-        console.log(cart);
-        setCartInventory(cart);
+        //console.log(cart);
+
+        setCartInventory(cart);        
       })
       .catch((err) =>{
         console.log(err);
-      })
+      });
   }, []);
 
-  function handleProductSearch(e){
-    e.preventDefault();
+  function handleProductSearch(searchTarget){
+    console.log(`Executing search for term ${searchTarget}`);
 
-    setSearchTerm(e.target.searchTerm.value);
+    //history.push("/products");
+    setSearchTerm(searchTarget);
   }
 
   function handleUpdateCart(id, quantity){
@@ -89,6 +101,7 @@ function App() {
 
           return prev;
         });
+        forceRerender();
       })
       .catch((err) =>{
         console.log(err);
@@ -96,12 +109,21 @@ function App() {
   }
 
   function removeItemAtIndex(index){
-    console.log(`Popping item at index ${index}`);
-
-    console.log(cartInventory.products.splice(index, 1));
-    console.log(cartInventory);
+    //console.log(`Popping item at index ${index}`);
+    
+    cartInventory.products.splice(index, 1);
+    // console.log();
+    // console.log(cartInventory);
 
     setCartInventory(cartInventory);
+    forceRerender();
+  }
+
+  function updateItemAtIndex(index, newAmount){
+    cartInventory.products[index].quantity = newAmount;
+
+    setCartInventory(cartInventory);
+    forceRerender();
   }
 
   function clearCart(){
@@ -110,14 +132,15 @@ function App() {
 
       return prev;
     });
+    forceRerender();
   }
 
   return (
-    <Router>     
+    <Router>    
       <AppWrapper>
-        <CartContext.Provider value={{cartInventory, handleUpdateCart, clearCart, removeItemAtIndex}}>
-          <NavBar/>
-          <ProductContext.Provider value={{isLoading, productList}}>
+        <CartContext.Provider value={{cartInventory, handleUpdateCart, clearCart, removeItemAtIndex, updateItemAtIndex}}>
+          <ProductContext.Provider value={{isLoading, productList, handleProductSearch}}>
+            <NavBar/>
             <Switch>
               <Route exact path="/">
                 <Redirect to='/products'/>

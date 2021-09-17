@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import {useContext} from "react";
 import styled from "styled-components";
 import CartContext from "../../context/CartContext";
 import CartElem from "./CartElem";
@@ -12,17 +12,9 @@ const CartContainer = styled.div`
     box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.5);
 `;
 
-const useForceRerendering = () => {
-    const [counter, setCounter] = useState(0);
-    return () => setCounter(counter => counter + 1);
-};
-
 const CartList = () => {
-
-    const forceRerendering = useForceRerendering();
-
-    const {cartInventory} = useContext(CartContext);
-
+   
+    const {cartInventory} = useContext(CartContext);    
     //console.log(cartInventory);
 
     /*
@@ -35,7 +27,7 @@ const CartList = () => {
 
     // useEffect(() =>{
     //     //TODO: Implement something that updates the cart list when inventory is changed
-    // });
+    // }, [cartInventory]);
 
     if(!cartInventory){
         return(
@@ -45,6 +37,7 @@ const CartList = () => {
         )
     }
 
+
     return(
         <CartContainer>
             {cartInventory.products.map((item, index) => 
@@ -52,7 +45,7 @@ const CartList = () => {
                     key={index}
                     index={index}
                     id={item.productId}
-                    quantity={item.quantity}                
+                    quantity={item.quantity}               
                 />
             )}
         </CartContainer>

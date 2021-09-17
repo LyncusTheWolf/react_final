@@ -16,7 +16,7 @@ const ProductList = () => {
 
     const {isLoading, productList} = useContext(ProductContext);
 
-    console.log(productList);
+    //console.log(productList);
 
     //console.log(mockProducts);
     if(isLoading){
@@ -28,7 +28,7 @@ const ProductList = () => {
     }
 
     if(productList.length === 0){
-        console.log("No items found");
+        //console.log("No items found");
         return(
             <>
                 <p>No items found</p>
@@ -36,16 +36,17 @@ const ProductList = () => {
         )
     }
 
-    console.log("Rendering Product Page");
+    //console.log("Rendering Product Page");
     return (
         <ProductContainer>
-            {productList.map((product) =>
+            {productList.map((product, index) =>
                     <ProductCard 
-                        key={product.id}
+                        key={index}
                         id={product.id}
                         title={product.title}
                         image={product.image}
                         description={product.description}
+                        price={product.price}
                     />
             )}
         </ProductContainer>

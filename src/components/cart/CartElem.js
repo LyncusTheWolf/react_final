@@ -7,7 +7,8 @@ import { getProductById } from "../../utils/utils";
 const theme = require("../../schema.json");
 
 const ProductDetails = styled.div`
-    color: #777;
+    color: ${theme.font.description.color};
+    font-size: ${theme.font.description.size};
     flex: 1;
     padding: 10px;
     border-left: ${theme.divider.splitter};
@@ -15,6 +16,8 @@ const ProductDetails = styled.div`
 `;
 
 const PriceDetails = styled.div`
+    color: ${theme.font.description.color};
+    font-size: ${theme.font.description.size};
     width: 10%;
     padding: 8px;
 `;
@@ -29,9 +32,13 @@ const RemoveButton = styled.button`
     margin-right: 0;
 `;
 
+const QuantityInput = styled.input`
+    width: 90%;
+`;
+
 const CartElem = ({id, index, quantity}) =>{
 
-    const {removeItemAtIndex} = useContext(CartContext);
+    const {removeItemAtIndex, updateItemAtIndex} = useContext(CartContext);
 
     const[productElem, setProductElem] = useState({
         "title": "Filler",
@@ -45,10 +52,15 @@ const CartElem = ({id, index, quantity}) =>{
             .catch((err) =>{
                 console.log(err);
             })
-    }, []);
+    }, [id]);
 
-    function handleCartPop(index){
-        console.log(`Popping item with index: ${index} from the cart`);
+    // function handleCartPop(index){
+    //     console.log(`Popping item with index: ${index} from the cart`);
+    // }
+
+    function updateCartContents(e){
+        //console.log(e.target.value);
+        updateItemAtIndex(index, e.target.value);
     }
 
     return(
@@ -61,7 +73,7 @@ const CartElem = ({id, index, quantity}) =>{
                     <p>{productElem.title}</p>
                 </ProductDetails>
                 <PriceDetails>
-                    <p>{quantity}</p>
+                    <QuantityInput type="number" value={quantity} onChange={updateCartContents}/>
                     <p>{productElem.price}</p>
                     <RemoveButton onClick={() => {
                         removeItemAtIndex(index);

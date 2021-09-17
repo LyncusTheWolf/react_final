@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
 import CartContext from "../../context/CartContext";
-import ProductContext from "../../context/ProductContext";
+//import ProductContext from "../../context/ProductContext";
 import ProductImage from "../../styles/ProductImage.style";
 import { getProductById } from "../../utils/utils";
 import Spinner from "../Spinner";
@@ -17,12 +17,16 @@ const ProductDetailsContainer = styled.div`
 `;
 
 const DescriptionContainer = styled.div`
+    color: ${theme.font.description.color};
+    font-size: ${theme.font.description.size};
     border-left: ${theme.divider.splitter};
     border-right: ${theme.divider.splitter};
     padding: 16px;
 `;
 
 const PriceContainer = styled.div`
+    color: ${theme.font.description.color};
+    font-size: ${theme.font.description.size};
     padding: 16px;
 `;
 
@@ -31,7 +35,7 @@ const ProductDetails = () => {
     const[productItem, setProductItem] = useState(null);
     const[productQuantity, setProductQuantity] = useState(1);
 
-    const {productList} = useContext(ProductContext);
+    //const {productList} = useContext(ProductContext);
     const {handleUpdateCart} = useContext(CartContext);
 
     const {index} = useParams();
@@ -42,7 +46,7 @@ const ProductDetails = () => {
     useEffect(()=>{
         getProductById(index)
             .then((product) =>{
-                console.log(product);
+                //console.log(product);
                 setProductItem(product);
             })
             .catch((err) =>{
@@ -54,12 +58,12 @@ const ProductDetails = () => {
         
     }, []);
 
-    function addItemToCart(id, quantity){
-        console.log(`Added ${quantity} item with id: ${id} to cart`);
+    // function addItemToCart(id, quantity){
+    //     console.log(`Added ${quantity} item with id: ${id} to cart`);
 
-        //TODO:
-        //Implement post method for adding item to card
-    }
+    //     //TODO:
+    //     //Implement post method for adding item to card
+    // }
 
     if(!productItem){
         return(

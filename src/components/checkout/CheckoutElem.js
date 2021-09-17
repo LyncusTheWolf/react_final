@@ -6,7 +6,8 @@ import { getProductById } from "../../utils/utils";
 const theme = require("../../schema.json");
 
 const ProductDetails = styled.div`
-    color: #777;
+    color: ${theme.font.description.color};
+    font-size: ${theme.font.description.size};
     flex: 1;
     padding: 10px;
     border-left: ${theme.divider.splitter};

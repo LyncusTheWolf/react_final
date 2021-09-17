@@ -14,5 +14,11 @@
     },
     "footer": {
         "height" : "150px"
+    },
+    "font": {
+        "description" : {
+            "color" : "#777",
+            "size" : "16px"
+        }
     }
 }
