@@ -46,7 +46,7 @@ const CheckoutElem = ({id, quantity}) =>{
                 </ProductDetails>
                 <PriceDetails>
                     <p>{quantity}</p>
-                    <p>{productElem.price}</p>
+                    <p>${productElem.price * quantity}</p>
                 </PriceDetails>
             </div>
         </IndexContainer>

@@ -74,7 +74,7 @@ const CartElem = ({id, index, quantity}) =>{
                 </ProductDetails>
                 <PriceDetails>
                     <QuantityInput type="number" value={quantity} onChange={updateCartContents}/>
-                    <p>{productElem.price}</p>
+                    <p>${productElem.price * quantity}</p>
                     <RemoveButton onClick={() => {
                         removeItemAtIndex(index);
                     }}>x</RemoveButton>

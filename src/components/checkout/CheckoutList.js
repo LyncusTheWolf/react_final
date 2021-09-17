@@ -15,15 +15,17 @@ const CartContainer = styled.div`
 const CheckoutList = () => {
     const {cartInventory} = useContext(CartContext);
 
-    //console.log(cartInventory);
+    let subTotal = "~Coming Soon~";
 
-    /*
-    *
-    * TODO:
-    * Pre-populate a json object array with the cart details here
-    * Map over that json object
-    * 
-    */
+    // TODO: Functionality migrated out, fix this later
+    // cartInventory.products.forEach(product => {
+    //     //console.log(product);
+    //     subTotal += product.quantity;
+    // });
+
+    function subTotalCalc(amt){
+        subTotal += amt;
+    }
 
     if(!cartInventory){
         return(
@@ -42,6 +44,7 @@ const CheckoutList = () => {
                     quantity={item.quantity}                  
                 />
             )}
+            <p>Subtotal: {subTotal}</p>
         </CartContainer>
     )
 }

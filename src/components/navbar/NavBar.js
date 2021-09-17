@@ -76,7 +76,7 @@ const NavBar = () => {
         </NavItem>
         <NavItem className="flex-4">
           <SearchBlock>
-            <label className="fsize-24">Product Search</label>
+            {/* <label className="fsize-24">Product Search</label> */}
             <SearchBar type="text" name="searchTerm" onKeyPress={processSearch} placeholder="Enter an item name or description"></SearchBar>
           </SearchBlock>
         </NavItem>

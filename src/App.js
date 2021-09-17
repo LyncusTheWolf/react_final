@@ -1,17 +1,19 @@
 //import logo from './logo.svg';
 
-//css
+//#region css imports
 import './App.css';
+//#endregion
 
-//3rd Party Imports
+//#region 3rd Party Imports
 import { 
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect
 } from 'react-router-dom';
+//#endregion
 
-//Native Imports
+//#region Native Imports
 import { useEffect, useState } from 'react';
 import ProductPage from './components/products/ProductsPage';
 import ProductDetailsPage from './components/product details/ProductDetailsPage';
@@ -19,13 +21,15 @@ import CartPage from './components/cart/CartPage';
 import CheckoutPage from './components/checkout/CheckoutPage';
 import NavBar from './components/navbar/NavBar';
 import PageNotFound from './errors/PageNotFound';
+//#endregion
 
-//Context Imports
+//#region Context Imports
 import CartContext from './context/CartContext';
 import ProductContext from './context/ProductContext';
 import { getCartById, getFullProductList, pushCartItem } from './utils/utils';
 import CommerceFooter from './components/footer/Footer';
 import AppWrapper from './styles/AppWrapper.style';
+//#endregion
 
 const cartDefaultID = 1;
 
@@ -39,11 +43,14 @@ function App() {
   }
   //#endregion
 
+  //#region States
   const[isLoading, setLoading] = useState(true);
   const[searchTerm, setSearchTerm] = useState("");
   const[productList, setProductList] = useState(null);
   const[cartInventory, setCartInventory] = useState(null);
+  //#endregion
 
+  //#region Effect blocks
   useEffect(() => {
     setLoading(true);
     //console.log("Initial Page Load Functionality Established");
@@ -77,7 +84,9 @@ function App() {
         console.log(err);
       });
   }, []);
+  //#endregion
 
+  //#region Handler Callbacks
   function handleProductSearch(searchTarget){
     console.log(`Executing search for term ${searchTarget}`);
 
@@ -134,7 +143,9 @@ function App() {
     });
     forceRerender();
   }
+  //#endregion
 
+  //#region Render Block
   return (
     <Router>    
       <AppWrapper>
@@ -168,6 +179,7 @@ function App() {
       </AppWrapper>
     </Router>
   );
+  //#endregion
 }
 
 export default App;

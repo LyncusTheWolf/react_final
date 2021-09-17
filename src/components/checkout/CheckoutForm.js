@@ -41,9 +41,6 @@ const CheckoutForm = () => {
     function handleSubmit(e){
         e.preventDefault();
     
-        //console.log("Submit intercepted");
-        //console.log(e);
-    
         console.log(`
             Sending billing info to:\n
             ${e.target.fname.value} ${e.target.lname.value}\n

@@ -7,8 +7,8 @@ const theme = require("../../schema.json");
 
 const ProductContainer = styled.div`
     border: ${theme.border.default};
-    margin: 0;
-    //padding: 16px;
+    margin: 0 10%;
+    margin-top: 16px;
     box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.5);
 `;
 
